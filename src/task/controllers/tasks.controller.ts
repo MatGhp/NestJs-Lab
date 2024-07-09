@@ -9,21 +9,26 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { TasksService } from '../services/tasks.service';
 import { Task, TaskStatus } from '../models/task.model';
+import { GetTasksFilterDto } from '../dtos/getTasksFilterDto';
 
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  getAllTasks(): Task[] {
+  getTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
+    if (Object.keys(filterDto).length) {
+      return this.tasksService.getTasks(filterDto);
+    }
     return this.tasksService.getAllTasks();
   }
 
   @Get(':id')
-  getTaskById(@Param('id', ParseUUIDPipe) id: string): Task {
+  getTaskById(@Param('id', ParseUUIDPipe) id: number): Task {
     return this.tasksService.getTaskById(id);
   }
 
@@ -35,7 +40,7 @@ export class TasksController {
 
   @Put(':id/status')
   updateTaskStatus(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('id', ParseUUIDPipe) id: number,
     @Body('status') status: TaskStatus,
   ): Task {
     return this.tasksService.updateTaskStatus(id, status);
@@ -43,7 +48,7 @@ export class TasksController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  deleteTask(@Param('id', ParseUUIDPipe) id: string): void {
+  deleteTask(@Param('id', ParseUUIDPipe) id: number): void {
     this.tasksService.deleteTask(id);
   }
 }

@@ -1,11 +1,11 @@
 export interface Task {
-  readonly description: string;
+  description: string;
 
-  readonly id: string;
+  id: number;
 
   status: TaskStatus;
 
-  readonly title: string;
+  title: string;
 }
 
 export enum TaskStatus {
