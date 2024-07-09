@@ -13,7 +13,8 @@ import {
 } from '@nestjs/common';
 import { TasksService } from '../services/tasks.service';
 import { Task, TaskStatus } from '../models/task.model';
-import { GetTasksFilterDto } from '../dtos/getTasksFilterDto';
+import { GetTasksFilterDto } from '../dtos/getTasksFilter.dto';
+import { CreateTaskDto } from '../dtos/createTask.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -34,8 +35,8 @@ export class TasksController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  createTask(@Body() task: Task): Task {
-    return this.tasksService.createTask(task);
+  createTask(@Body() createTask: CreateTaskDto): Task {
+    return this.tasksService.createTask(createTask);
   }
 
   @Put(':id/status')

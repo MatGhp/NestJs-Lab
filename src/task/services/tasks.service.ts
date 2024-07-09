@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Task, TaskStatus } from '../models/task.model';
-import { GetTasksFilterDto } from '../dtos/getTasksFilterDto';
+import { CreateTaskDto } from '../dtos/createTask.dto';
+import { GetTasksFilterDto } from '../dtos/getTasksFilter.dto';
 
 @Injectable()
 export class TasksService {
@@ -49,9 +50,11 @@ export class TasksService {
     return found;
   }
 
-  createTask(task: Task): Task {
-    this.tasks.push(task);
-    return task;
+  createTask(createTask: CreateTaskDto): Task {
+    const newId = Math.max(...this.tasks.map((task) => task.id)) + 1;
+    const newTask: Task = { ...createTask, id: newId };
+    this.tasks.push(newTask);
+    return newTask;
   }
 
   updateTaskStatus(id: number, status: TaskStatus): Task {
