@@ -12,9 +12,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { TasksService } from '../services/tasks.service';
-import { Task, TaskStatus } from '../models/task.model';
-import { GetTasksFilterDto } from '../dtos/getTasksFilter.dto';
-import { CreateTaskDto } from '../dtos/createTask.dto';
+import { Task } from '../models/task.model';
+import { GetTasksFilterDto } from '../dtos/get-tasks-filter.dto';
+import { CreateTaskDto } from '../dtos/create-task.dto';
+import { UpdateTaskDto } from '../dtos/update-task-dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -42,9 +43,9 @@ export class TasksController {
   @Put(':id/status')
   updateTaskStatus(
     @Param('id', ParseUUIDPipe) id: number,
-    @Body('status') status: TaskStatus,
+    @Body() updateTaskDto: UpdateTaskDto,
   ): Task {
-    return this.tasksService.updateTaskStatus(id, status);
+    return this.tasksService.updateTaskStatus(id, updateTaskDto);
   }
 
   @Delete(':id')
