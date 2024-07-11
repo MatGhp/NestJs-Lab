@@ -26,11 +26,13 @@ export class TasksService {
     }
 
     if (title) {
-      query.andWhere('task.title LIKE :title', { title: `%${title}%` });
+      query.andWhere('LOWER(task.title) LIKE LOWER(:title)', {
+        title: `%${title}%`,
+      });
     }
 
     if (description) {
-      query.andWhere('task.description LIKE :description', {
+      query.andWhere('LOWER(task.description) LIKE LOWER(:description)', {
         description: `%${description}%`,
       });
     }
