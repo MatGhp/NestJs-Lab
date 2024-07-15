@@ -26,12 +26,7 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  async getTasks(
-    @Query() filterDto: GetTasksFilterDto,
-    @GetUser() user: User,
-  ): Promise<Task[]> {
-    // use the getUser decorator
-    console.log(user);
+  async getTasks(@Query() filterDto: GetTasksFilterDto): Promise<Task[]> {
     if (Object.keys(filterDto).length) {
       return await this.tasksService.getTasks(filterDto);
     }
@@ -45,8 +40,11 @@ export class TasksController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async createTask(@Body() createTask: CreateTaskDto): Promise<Task> {
-    return this.tasksService.createTask(createTask);
+  async createTask(
+    @Body() createTask: CreateTaskDto,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.createTask(createTask, user);
   }
 
   @Put(':id/status')
