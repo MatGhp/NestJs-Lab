@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Logger,
   Param,
   Post,
   Put,
@@ -23,6 +24,8 @@ import { User } from '../../auth/entities/user.entity';
 @Controller('tasks')
 @UseGuards(AuthGuard('jwt'))
 export class TasksController {
+  private logger = new Logger('TasksController');
+
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
@@ -30,10 +33,13 @@ export class TasksController {
     @Query() filterDto: GetTasksFilterDto,
     @GetUser() user: User,
   ): Promise<Task[]> {
+    this.logger.verbose(
+      `User ${user.username} is looking for ${JSON.stringify(filterDto)}`,
+    );
     if (Object.keys(filterDto).length) {
       return await this.tasksService.getTasks(filterDto, user);
     }
-    return this.tasksService.getAllTasks();
+    return this.tasksService.getAllTasks(user);
   }
 
   @Get(':id')
