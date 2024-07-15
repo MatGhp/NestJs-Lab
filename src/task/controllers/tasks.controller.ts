@@ -17,6 +17,8 @@ import { CreateTaskDto } from '../dtos/create-task.dto';
 import { UpdateTaskDto } from '../dtos/update-task-dto';
 import { Task } from '../entities/task.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from '../../auth/decorators/get-user.decorator';
+import { User } from '../../auth/entities/user.entity';
 
 @Controller('tasks')
 @UseGuards(AuthGuard('jwt'))
@@ -24,7 +26,12 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  async getTasks(@Query() filterDto: GetTasksFilterDto): Promise<Task[]> {
+  async getTasks(
+    @Query() filterDto: GetTasksFilterDto,
+    @GetUser() user: User,
+  ): Promise<Task[]> {
+    // use the getUser decorator
+    console.log(user);
     if (Object.keys(filterDto).length) {
       return await this.tasksService.getTasks(filterDto);
     }
