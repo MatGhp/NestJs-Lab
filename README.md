@@ -30,6 +30,9 @@ $ docker pull dpage/pgadmin4
 # Run Postgres
 $ docker run --name postgres-nest -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres
 
+# install 
+$ npm install -g cross-env
+
 # development
 $ npm run start
 
