@@ -91,6 +91,14 @@ file(name: "file") {name}
 }
 ```
 
+get all files
+```
+query {
+  allFiles 
+   {name}
+}
+```
+
 ## License
 
 [MIT licensed]

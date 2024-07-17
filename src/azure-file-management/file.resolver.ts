@@ -16,6 +16,15 @@ export class FileResolver {
     return files;
   }
 
+  @Query(() => [FileType])
+  async allFiles(): Promise<FileType[]> {
+    const files = await this.fileService.getAllFile();
+    if (!files || files.length === 0) {
+      throw new Error(`No files found`);
+    }
+    return files;
+  }
+
   @Mutation(() => FileType)
   async createFile(
     @Args('createFileInput') createFileInput: CreateFileInput,

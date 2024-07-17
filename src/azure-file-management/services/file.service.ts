@@ -8,6 +8,10 @@ import { v4 as uuidv4 } from 'uuid';
 export class FileService {
   constructor(private readonly fileRepository: FileRepository) {}
 
+  async getAllFile(): Promise<FileEntity[]> {
+    return this.fileRepository.find();
+  }
+
   async getFile(name: string): Promise<FileEntity[]> {
     return this.fileRepository.findByName(name);
   }
