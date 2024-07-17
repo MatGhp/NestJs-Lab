@@ -65,6 +65,19 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+# GraphQL Playground 
+URL: http://localhost:3000/graphql
+
+create a new file metadata
+```
+mutation {
+createFile (
+name: "some-file.json"
+saveDateTime: "2024-03-28T18:00:00Z"
+uri: "some-uri"
+) {name, id}}
+```
+
 ## License
 
 [MIT licensed]
