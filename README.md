@@ -71,17 +71,23 @@ URL: http://localhost:3000/graphql
 create a new file metadata
 ```
 mutation {
-createFile (
-name: "some-file.json"
-saveDateTime: "2024-03-28T18:00:00Z"
-uri: "some-uri"
-) {name, id}}
+  createFile(createFileInput: {
+    name: "example-file-123.txt"
+    saveDateTime: "2024-07-17T12:00:00Z"
+    uri: "example-uri",
+  }) {
+    id
+    name
+    saveDateTime
+    uri
+  }
+}
 ```
 
 search file names
 ```
 query {
-file(name: "me") {name}
+file(name: "file") {name}
 }
 ```
 

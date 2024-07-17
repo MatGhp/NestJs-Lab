@@ -1,6 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { FileType } from './file.type';
 import { FileService } from './services/file.service';
+import { CreateFileInput } from './file.input';
 
 @Resolver(() => FileType)
 export class FileResolver {
@@ -17,10 +18,8 @@ export class FileResolver {
 
   @Mutation(() => FileType)
   async createFile(
-    @Args('name') name: string,
-    @Args('saveDateTime') saveDateTime: string,
-    @Args('uri') uri: string,
+    @Args('createFileInput') createFileInput: CreateFileInput,
   ): Promise<FileType> {
-    return this.fileService.createFile(name, saveDateTime, uri);
+    return this.fileService.createFile(createFileInput);
   }
 }
