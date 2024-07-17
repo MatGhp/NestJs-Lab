@@ -30,8 +30,17 @@ $ docker pull dpage/pgadmin4
 # Run Postgres
 $ docker run --name postgres-nest -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres
 
-# install 
+# Run MongoDB
+$ docker run --name mongo -p 27017:27017 -d mongo
+
+# download and install the Robo 3T and connect to your MongoDB
+https://studio3t.com/download/
+
+# install cross-env globally
 $ npm install -g cross-env
+
+# install NestJS CLI
+$npm install @nestjs/cli -g
 
 # development
 $ npm run start
