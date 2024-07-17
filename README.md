@@ -78,6 +78,13 @@ uri: "some-uri"
 ) {name, id}}
 ```
 
+search file names
+```
+query {
+file(name: "me") {name}
+}
+```
+
 ## License
 
 [MIT licensed]
