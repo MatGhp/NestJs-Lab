@@ -1,28 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 import { FileEntity } from '../file.entity';
-import { v4 as uuid } from 'uuid';
+import { FileRepository } from './file.repository';
 
 @Injectable()
 export class FileService {
-  constructor(
-    @InjectRepository(FileEntity)
-    private fileRepository: Repository<FileEntity>,
-  ) {}
+  constructor(private readonly fileRepository: FileRepository) {}
 
-  createFile(
+  async getFile(name: string): Promise<FileEntity[]> {
+    return this.fileRepository.findByName(name);
+  }
+
+  async createFile(
     name: string,
-    uri: string,
     saveDateTime: string,
+    uri: string,
   ): Promise<FileEntity> {
-    const file = this.fileRepository.create({
-      id: uuid.toString(),
-      name,
-      uri,
-      saveDateTime,
-    });
-
-    return this.fileRepository.save(file);
+    const newFile = this.fileRepository.create({ name, saveDateTime, uri });
+    return this.fileRepository.save(newFile);
   }
 }

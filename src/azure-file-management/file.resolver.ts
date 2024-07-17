@@ -2,25 +2,25 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { FileType } from './file.type';
 import { FileService } from './services/file.service';
 
-@Resolver((of) => FileType)
+@Resolver(() => FileType)
 export class FileResolver {
-  constructor(private fileService: FileService) {}
-  @Query((returns) => FileType)
-  file() {
-    return {
-      id: 'some-random-id',
-      name: 'some-file-name',
-      uri: '/test-url',
-      saveDateTime: new Date().toISOString(),
-    };
+  constructor(private readonly fileService: FileService) {}
+
+  @Query(() => [FileType])
+  async file(@Args('name') name: string): Promise<FileType[]> {
+    const files = await this.fileService.getFile(name);
+    if (!files || files.length === 0) {
+      throw new Error(`No files found with name containing "${name}"`);
+    }
+    return files;
   }
 
-  @Mutation((returns) => FileType)
-  createFile(
+  @Mutation(() => FileType)
+  async createFile(
     @Args('name') name: string,
     @Args('saveDateTime') saveDateTime: string,
     @Args('uri') uri: string,
-  ) {
+  ): Promise<FileType> {
     return this.fileService.createFile(name, saveDateTime, uri);
   }
 }
