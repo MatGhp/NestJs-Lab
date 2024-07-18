@@ -12,7 +12,7 @@ export class FileService {
     return this.fileRepository.find();
   }
 
-  async getFile(name: string): Promise<FileEntity[]> {
+  async searchFileName(name: string): Promise<FileEntity[]> {
     return this.fileRepository.findByName(name);
   }
 
