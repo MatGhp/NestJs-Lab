@@ -8,7 +8,7 @@ export class FileResolver {
   constructor(private readonly fileService: FileService) {}
 
   @Query(() => [FileType])
-  async file(@Args('name') name: string): Promise<FileType[]> {
+  async searchFileName(@Args('name') name: string): Promise<FileType[]> {
     const files = await this.fileService.getFile(name);
     if (!files || files.length === 0) {
       throw new Error(`No files found with name containing "${name}"`);

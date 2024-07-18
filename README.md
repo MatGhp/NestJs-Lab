@@ -87,7 +87,7 @@ mutation {
 search file names
 ```
 query {
-file(name: "file") {name}
+searchFileName(name: "file") {name}
 }
 ```
 
