@@ -4,6 +4,7 @@ import { FileManagementController } from './file-management.controller';
 import { DatabaseModule } from '@app/common';
 import { FileRepository } from './file.repository';
 import { FileDocument, FileSchema } from './entities/file.entity';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
@@ -11,6 +12,16 @@ import { FileDocument, FileSchema } from './entities/file.entity';
     DatabaseModule.forFeature([
       { name: FileDocument.name, schema: FileSchema },
     ]),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport: {
+          target: 'pino-pretty',
+          options: {
+            singleLine: true,
+          },
+        },
+      },
+    }),
   ],
   controllers: [FileManagementController],
   providers: [FileManagementService, FileRepository],
