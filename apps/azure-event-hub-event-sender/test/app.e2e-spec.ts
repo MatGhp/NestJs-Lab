@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AzureEventHubEventSenderModule } from './../src/azure-event-hub-event-sender.module';
+import { AzureEventHubEventSenderModule } from '../src/azure-event-hub-event-sender.module';
 
 describe('AzureEventHubEventSenderController (e2e)', () => {
   let app: INestApplication;
