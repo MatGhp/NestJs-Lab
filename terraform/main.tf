@@ -1,4 +1,3 @@
-# main.tf
 terraform {
   required_providers {
     azurerm = {
@@ -28,7 +27,7 @@ resource "azurerm_eventhub_namespace" "main" {
   name                = "${var.prefix}-${var.environment}-${var.eventhub_namespace_name}"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-  sku                 = "Basic"  # Minimum cost tier
+  sku                 = "Basic" # Minimum cost tier
   capacity            = 1
 }
 
@@ -38,7 +37,7 @@ resource "azurerm_eventhub" "main" {
   namespace_name      = azurerm_eventhub_namespace.main.name
   resource_group_name = azurerm_resource_group.main.name
   partition_count     = 2
-  message_retention   = 1
+  message_retention   = 1 # Minimum retention period
 }
 
 # Create an Authorization Rule
@@ -52,6 +51,26 @@ resource "azurerm_eventhub_authorization_rule" "main" {
   manage              = true
 }
 
+# Create a Storage Account
+resource "azurerm_storage_account" "main" {
+  name                     = "${var.prefix}${var.environment}sa"
+  resource_group_name      = azurerm_resource_group.main.name
+  location                 = azurerm_resource_group.main.location
+  account_tier             = var.storage_account_tier
+  account_replication_type = var.storage_account_replication
+
+  tags = {
+    environment = var.environment
+  }
+}
+
+# Create a Storage Container
+resource "azurerm_storage_container" "main" {
+  name                  = var.storage_container_name
+  storage_account_name  = azurerm_storage_account.main.name
+  container_access_type = "private"
+}
+
 # Output the connection string
 output "namespace_connection_string" {
   value     = azurerm_eventhub_namespace.main.default_primary_connection_string
@@ -61,4 +80,14 @@ output "namespace_connection_string" {
 # Output the Event Hub name
 output "eventhub_name" {
   value = azurerm_eventhub.main.name
+}
+
+# Output the Storage Account name
+output "storage_account_name" {
+  value = azurerm_storage_account.main.name
+}
+
+# Output the Storage Container name
+output "storage_container_name" {
+  value = azurerm_storage_container.main.name
 }
