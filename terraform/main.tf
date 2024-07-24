@@ -51,6 +51,22 @@ resource "azurerm_eventhub_authorization_rule" "main" {
   manage              = true
 }
 
+# Create the first Consumer Group named 'job1'
+resource "azurerm_eventhub_consumer_group" "job1" {
+  name                = "job1"
+  eventhub_name       = azurerm_eventhub.main.name
+  namespace_name      = azurerm_eventhub_namespace.main.name
+  resource_group_name = azurerm_resource_group.main.name
+}
+
+# Create the second Consumer Group named 'job2'
+resource "azurerm_eventhub_consumer_group" "job2" {
+  name                = "job2"
+  eventhub_name       = azurerm_eventhub.main.name
+  namespace_name      = azurerm_eventhub_namespace.main.name
+  resource_group_name = azurerm_resource_group.main.name
+}
+
 # Create a Storage Account
 resource "azurerm_storage_account" "main" {
   name                     = "${var.prefix}${var.environment}sa"
@@ -90,4 +106,13 @@ output "storage_account_name" {
 # Output the Storage Container name
 output "storage_container_name" {
   value = azurerm_storage_container.main.name
+}
+
+# Output Consumer Group names
+output "consumer_group_1" {
+  value = azurerm_eventhub_consumer_group.job1.name
+}
+
+output "consumer_group_2" {
+  value = azurerm_eventhub_consumer_group.job2.name
 }
