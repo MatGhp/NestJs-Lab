@@ -10,12 +10,12 @@ export class EventSenderService implements OnModuleInit {
 
   onModuleInit() {
     const connectionString = this.configService.get<string>(
-      'EVENT_HUB_CONNECTION',
+      'EVENT_HUB_CONNECTION_STRING',
     );
     const eventHubName = this.configService.get<string>('EVENT_HUB_NAME');
 
     if (!connectionString || !eventHubName) {
-      throw new Error('Missing EVENT_HUB_CONNECTION or EVENT_HUB_NAME');
+      throw new Error('Missing EVENT_HUB_CONNECTION_STRING or EVENT_HUB_NAME');
     }
 
     this.producerClient = new EventHubProducerClient(

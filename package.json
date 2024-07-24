@@ -10,6 +10,7 @@
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:event-sender": "cross-env STAGE=dev nest start azure-event-hub-event-sender --watch",
+    "start:event-receiver": "cross-env STAGE=dev nest start azure-event-hub-event-receiver --watch",
     "start:dev": "cross-env STAGE=dev nest start --watch",
     "start:debug": "cross-env STAGE=dev nest start --debug --watch",
     "start:prod": "node dist/apps/nestjs-task-management/main",

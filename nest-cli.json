@@ -43,6 +43,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/azure-event-hub-event-sender/tsconfig.app.json"
       }
+    },
+    "azure-event-hub-event-receiver": {
+      "type": "application",
+      "root": "apps/azure-event-hub-event-receiver",
+      "entryFile": "main",
+      "sourceRoot": "apps/azure-event-hub-event-receiver/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/azure-event-hub-event-receiver/tsconfig.app.json"
+      }
     }
   },
   "monorepo": true,
