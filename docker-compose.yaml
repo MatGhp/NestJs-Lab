@@ -1,0 +1,21 @@
+services:
+  azure-event-sender:
+    build:
+      context: .
+      dockerfile: ./apps/azure-event-hub-event-sender/Dockerfile
+      target: development
+    command: npm run start:dev
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/src/app
+
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
