@@ -1,7 +1,9 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, UseInterceptors } from '@nestjs/common';
 import { EventSenderService } from './event-sender.service';
+import { ResponseTransformInterceptor } from '@app/common';
 
 @Controller('event-sender')
+@UseInterceptors(ResponseTransformInterceptor)
 export class EventSenderController {
   constructor(private readonly eventService: EventSenderService) {}
 
