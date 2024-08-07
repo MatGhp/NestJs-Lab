@@ -4,12 +4,21 @@ services:
       context: .
       dockerfile: ./apps/azure-event-hub-event-sender/Dockerfile
       target: development
-    command: npm run start:dev
+    command: npm run start:event-sender
     ports:
       - '3001:3001'
     volumes:
       - .:/usr/src/app
-
+  azure-event-receiver:
+    build:
+      context: .
+      dockerfile: ./apps/azure-event-hub-event-receiver/Dockerfile
+      target: development
+    command: npm run start:event-receiver
+    ports:
+      - '3002:3002'
+    volumes:
+      - .:/usr/src/app
   mongo:
     image: mongo
     ports:
