@@ -9,6 +9,7 @@ export const configValidationSchema = Joi.object({
   DB_PASSWORD: Joi.string().required(),
   DB_DATABASE: Joi.string().required(),
   JWT_SECRET: Joi.string().required(),
+  JWT_EXPIRATION: Joi.number().required(),
   MONGODB_URI: Joi.string().required(),
   EVENT_HUB_CONNECTION_STRING: Joi.string().required(),
   EVENT_HUB_NAME: Joi.string().required(),

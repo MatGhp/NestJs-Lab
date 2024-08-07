@@ -8,7 +8,6 @@ import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
-    DatabaseModule,
     DatabaseModule.forFeature([
       { name: FileDocument.name, schema: FileSchema },
     ]),
