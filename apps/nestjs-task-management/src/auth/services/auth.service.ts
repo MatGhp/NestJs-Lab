@@ -3,12 +3,14 @@ import { UserRepository } from '../repositories/user.repository';
 import { AuthCredentialsDto } from '../dto/auth-credentials.dto';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userRepository: UserRepository,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
   async signup(authCred: AuthCredentialsDto): Promise<void> {
@@ -24,7 +26,13 @@ export class AuthService {
 
     if (user && (await compare(password, user.password))) {
       const payload = { username };
-      const accessToken = await this.jwtService.signAsync(payload);
+
+      const expires = new Date();
+      expires.setSeconds(
+        expires.getSeconds() + this.configService.get('JWT_EXPIRATION'),
+      );
+
+      const accessToken = await this.jwtService.signAsync(payload, {});
       return { accessToken };
     }
     throw new UnauthorizedException(
