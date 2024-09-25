@@ -1,0 +1,39 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.17'
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install
+      npm run build
+    displayName: 'Install Dependencies and Build'
+
+  - script: |
+      npm test
+    displayName: 'Run Tests'
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/NestApp.zip'
+      replaceExistingArchive: true
+    displayName: 'Archive Build Output'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/NestApp.zip'
+      artifactName: 'drop'
+      publishLocation: 'Container'
+    displayName: 'Publish Artifact'
+
