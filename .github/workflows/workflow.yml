@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Azure Pipeline
-        uses: Azure/Pipelines@v3
+        uses: Azure/Pipelines@v1
         with:
           azure-devops-project-url: 'https://dev.azure.com/matghp-org/NestJS-Lab'
           azure-pipeline-name: 'MatGhp.NestJs-Lab'
