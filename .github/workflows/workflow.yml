@@ -21,12 +21,11 @@ jobs:
 
       - name: Trigger Azure Pipeline
         env:
-          AZURE_DEVOPS_ORG_URL: https://dev.azure.com/matghp-org/NestJS-Lab
-          AZURE_DEVOPS_PROJECT: MatGhp.NestJs-Lab
+          AZURE_DEVOPS_ORG_URL: https://dev.azure.com/matghp-org
+          AZURE_DEVOPS_PROJECT: NestJS-Lab
           AZURE_DEVOPS_PIPELINE_ID: 2
-          AZURE_DEVOPS_TOKEN: ${{ secrets.AZURE_DEVOPS_PAT }}      # Store your Azure DevOps PAT in GitHub Secrets
 
         run: |
           echo "Triggering Azure Pipeline..."
           az devops configure --defaults organization=$AZURE_DEVOPS_ORG_URL project=$AZURE_DEVOPS_PROJECT
-          az pipelines run --id $AZURE_DEVOPS_PIPELINE_ID --org $AZURE_DEVOPS_ORG_URL --project $AZURE_DEVOPS_PROJECT --detect --output json
+          az pipelines run --id $AZURE_DEVOPS_PIPELINE_ID --output json
