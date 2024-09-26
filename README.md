@@ -8,7 +8,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) 
+[NestJS](https://github.com/nestjs/nest) 
 
 
 ## Installation
