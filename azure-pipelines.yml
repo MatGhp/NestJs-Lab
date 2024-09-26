@@ -65,3 +65,4 @@ stages:
                     azureSubscription: 'Azure-Abonnement 1 (9bf7d398-40c9-420e-8331-563f3e0dc68f)'
                     appType: 'webApp'
                     appName: 'nestjs-lab-api'
+                    package: '$(Pipeline.Workspace)/drop/NestApp.zip'
