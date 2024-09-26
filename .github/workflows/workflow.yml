@@ -22,7 +22,7 @@ jobs:
       - name: Trigger Azure Pipeline
         env:
           AZURE_DEVOPS_ORG_URL: https://dev.azure.com/matghp-org
-          AZURE_DEVOPS_PROJECT: NestJS-Lab
+          AZURE_DEVOPS_PROJECT: MatGhp.NestJs-Lab
           AZURE_DEVOPS_PIPELINE_ID: 2
 
         run: |
