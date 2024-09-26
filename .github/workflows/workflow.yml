@@ -13,13 +13,10 @@ jobs:
     name: Azure Pipeline
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Trigger Azure Pipeline
-        uses: azure/pipelines@v1
+        uses: Azure/Pipelines@v1.2
         with:
           azure-devops-project-url: 'https://dev.azure.com/matghp-org/NestJS-Lab'
           azure-pipeline-name: 'MatGhp.NestJs-Lab'
-        env:
-          AZURE_DEVOPS_EXT_PAT: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+          azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+

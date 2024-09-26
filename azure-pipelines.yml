@@ -44,12 +44,13 @@ stages:
             displayName: 'Publish Artifact'
 
   - stage: Deploy
-    displayName: 'Deploy to Production'
+    displayName: 'Deploy to Test'
     dependsOn: Build
     condition: succeeded()
     jobs:
       - deployment: Deploy
         displayName: 'Deploy Job'
+        environment: 'Test'
         strategy:
           runOnce:
             deploy:
