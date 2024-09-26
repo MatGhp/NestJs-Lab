@@ -3,29 +3,20 @@ name: Trigger Azure Pipeline
 on:
   push:
     branches:
-      - main  # Or specify the branch you want to trigger the pipeline on
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  trigger-pipeline:
+  build:
+    name: Azure Pipeline
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Azure CLI
-        uses: azure/CLI@v1
-
       - name: Trigger Azure Pipeline
-        env:
-          AZURE_DEVOPS_ORG_URL: https://dev.azure.com/matghp-org
-          AZURE_DEVOPS_PROJECT: MatGhp.NestJs-Lab
-          AZURE_DEVOPS_PIPELINE_ID: 2
+        uses: Azure/Pipelines@v3
+        with:
+          azure-devops-project-url: 'https://dev.azure.com/matghp-org/NestJS-Lab'
+          azure-pipeline-name: 'MatGhp.NestJs-Lab'
+          azure-pipelines-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
 
-        run: |
-          echo "Triggering Azure Pipeline..."
-          az devops configure --defaults organization=$AZURE_DEVOPS_ORG_URL project=$AZURE_DEVOPS_PROJECT
-          az pipelines run --id $AZURE_DEVOPS_PIPELINE_ID --output json
