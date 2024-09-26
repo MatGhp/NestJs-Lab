@@ -18,5 +18,5 @@ jobs:
         with:
           azure-devops-project-url: 'https://dev.azure.com/matghp-org/NestJS-Lab'
           azure-pipeline-name: 'MatGhp.NestJs-Lab'
-          azure-pipelines-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+          azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
 
